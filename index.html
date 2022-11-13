@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring Rekap VK 1673
+    </title>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">Monitoring Rekap VK 1673 <span id="all-persentase"
+                            class="text-success">-</span>
+                    </h1>
+                    <p class="lead">Aplikasi web untuk memonitoring progres rekap VK setiap kecamatan tanpa SSO</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Kecamatan</th>
+                <th scope="col">Jumlah SLS</th>
+                <th scope="col">VK Dientri</th>
+                <th scope="col">Tidak Ditemukan</th>
+                <th scope="col">Persentase</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Dempo Utara</td>
+                <td id="du-sls">-</td>
+                <td id="du-entri">-</td>
+                <td id="du-tidak-ditemukan">-</td>
+                <td id="du-persentase">-</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Dempo Tengah</td>
+                <td id="dt-sls">-</td>
+                <td id="dt-entri">-</td>
+                <td id="dt-tidak-ditemukan">-</td>
+                <td id="dt-persentase">-</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Dempo Selatan</td>
+                <td id="ds-sls">-</td>
+                <td id="ds-entri">-</td>
+                <td id="ds-tidak-ditemukan">-</td>
+                <td id="ds-persentase">-</td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>Pagar Alam Utara</td>
+                <td id="pau-sls">-</td>
+                <td id="pau-entri">-</td>
+                <td id="pau-tidak-ditemukan">-</td>
+                <td id="pau-persentase">-</td>
+            </tr>
+            <tr>
+                <th scope="row">5</th>
+                <td>Pagar Alam Selatan</td>
+                <td id="pas-sls">-</td>
+                <td id="pas-entri">-</td>
+                <td id="pas-tidak-ditemukan">-</td>
+                <td id="pas-persentase">-</td>
+            </tr>
+            <tr>
+                <th scope="row">#</th>
+                <th>Total</th>
+                <th id="all-sls">-</th>
+                <th id="all-entri">-</th>
+                <th id="all-tidak-ditemukan">-</th>
+                <th id="all-persen">-</th>
+            </tr>
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
+    <script>
+        token = '288142|aYjJnmmKkTpxIiVr2rhzCVsR6bCsfTikE0eqC5QK';
+
+        // DU
+        $.ajax({
+            type: "GET",
+            url: "https://regsosek-repo.cloud.bps.go.id/api/monitoring/1673010",
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                ShowDataDU(result);
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+
+        function ShowDataDU(result) {
+            $('#du-sls').text(result.data.jumlah_sls);
+            $('#du-entri').text(result.data.jumlah_entri);
+            $('#du-tidak-ditemukan').text(result.data.jumlah_tidak_ditemukan);
+            $('#du-persentase').text((result.data.jumlah_entri / result.data.jumlah_sls).toFixed(2) * 100 + '%');
+        }
+
+        // DT
+        $.ajax({
+            type: "GET",
+            url: "https://regsosek-repo.cloud.bps.go.id/api/monitoring/1673011",
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                ShowDataDT(result);
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+
+        function ShowDataDT(result) {
+            $('#dt-sls').text(result.data.jumlah_sls);
+            $('#dt-entri').text(result.data.jumlah_entri);
+            $('#dt-tidak-ditemukan').text(result.data.jumlah_tidak_ditemukan);
+            $('#dt-persentase').text((result.data.jumlah_entri / result.data.jumlah_sls).toFixed(2) * 100 + '%');
+        }
+
+        // DS
+        $.ajax({
+            type: "GET",
+            url: "https://regsosek-repo.cloud.bps.go.id/api/monitoring/1673020",
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                ShowDataDS(result);
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+
+        function ShowDataDS(result) {
+            $('#ds-sls').text(result.data.jumlah_sls);
+            $('#ds-entri').text(result.data.jumlah_entri);
+            $('#ds-tidak-ditemukan').text(result.data.jumlah_tidak_ditemukan);
+            $('#ds-persentase').text((result.data.jumlah_entri / result.data.jumlah_sls).toFixed(2) * 100 + '%');
+        }
+
+        // PAU
+        $.ajax({
+            type: "GET",
+            url: "https://regsosek-repo.cloud.bps.go.id/api/monitoring/1673040",
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                ShowDataPAU(result);
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+
+        function ShowDataPAU(result) {
+            $('#pau-sls').text(result.data.jumlah_sls);
+            $('#pau-entri').text(result.data.jumlah_entri);
+            $('#pau-tidak-ditemukan').text(result.data.jumlah_tidak_ditemukan);
+            $('#pau-persentase').text((result.data.jumlah_entri / result.data.jumlah_sls).toFixed(2) * 100 + '%');
+        }
+
+        // PAS
+        $.ajax({
+            type: "GET",
+            url: "https://regsosek-repo.cloud.bps.go.id/api/monitoring/1673030",
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                ShowDataPAS(result);
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+
+        function ShowDataPAS(result) {
+            $('#pas-sls').text(result.data.jumlah_sls);
+            $('#pas-entri').text(result.data.jumlah_entri);
+            $('#pas-tidak-ditemukan').text(result.data.jumlah_tidak_ditemukan);
+            $('#pas-persentase').text((result.data.jumlah_entri / result.data.jumlah_sls).toFixed(2) * 100 + '%');
+        }
+
+        // ALL
+        $.ajax({
+            type: "GET",
+            url: "https://regsosek-repo.cloud.bps.go.id/api/monitoring/1673",
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
+            dataType: 'json',
+            success: function (result, status, xhr) {
+                ShowDataAll(result);
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+
+        function ShowDataAll(result) {
+            $('#all-sls').text(result.data.jumlah_sls);
+            $('#all-entri').text(result.data.jumlah_entri);
+            $('#all-tidak-ditemukan').text(result.data.jumlah_tidak_ditemukan);
+            $('#all-persentase').text((result.data.jumlah_entri / result.data.jumlah_sls).toFixed(2) * 100 + '%');
+            $('#all-persen').text((result.data.jumlah_entri / result.data.jumlah_sls).toFixed(2) * 100 + '%');
+        }
+
+    </script>
+</body>
+
+</html>
